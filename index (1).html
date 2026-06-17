@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexaPro — Premium Business Solutions</title>
+  <meta name="description" content="NexaPro delivers premium business solutions with cutting-edge technology and expert teams." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #12121a;
+      --bg3: #1a1a26;
+      --accent: #7c5cfc;
+      --accent2: #a78bfa;
+      --accent3: #c4b5fd;
+      --white: #f0f0ff;
+      --gray: #8888aa;
+      --gray2: #555570;
+      --border: rgba(124,92,252,0.15);
+      --card: rgba(255,255,255,0.03);
+      --font-display: 'Syne', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+      transition: background 0.4s, backdrop-filter 0.4s, border-bottom 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--accent2); }
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+    .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 5px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 70px; left: 0; right: 0;
+      background: rgba(10,10,15,0.98); backdrop-filter: blur(20px);
+      padding: 2rem 5%; flex-direction: column; gap: 1.5rem;
+      border-bottom: 1px solid var(--border); z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: var(--gray); text-decoration: none;
+      font-size: 1rem; font-weight: 500; transition: color 0.2s;
+      cursor: pointer;
+    }
+    .mobile-menu a:hover { color: var(--white); }
+
+    /* ── PAGES ── */
+    .page { display: none; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 5% 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,92,252,0.25), transparent),
+        radial-gradient(ellipse 40% 40% at 80% 80%, rgba(167,139,250,0.1), transparent);
+    }
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(124,92,252,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,92,252,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(124,92,252,0.1);
+      border: 1px solid rgba(124,92,252,0.3);
+      color: var(--accent3);
+      padding: 6px 16px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 500;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--accent2);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--accent2), var(--accent3), #e879f9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      color: var(--gray);
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      max-width: 560px; margin: 0 auto 2.5rem;
+      line-height: 1.7;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff; border: none;
+      padding: 0.9rem 2rem; border-radius: var(--radius-sm);
+      font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: all 0.3s;
+      font-family: var(--font-body);
+    }
+    .btn-primary:hover {
+      background: var(--accent2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(124,92,252,0.4);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--border);
+      padding: 0.9rem 2rem; border-radius: var(--radius-sm);
+      font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: all 0.3s;
+      font-family: var(--font-body);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: rgba(124,92,252,0.08);
+      transform: translateY(-2px);
+    }
+    .hero-stats {
+      display: flex; gap: 3rem; justify-content: center;
+      margin-top: 5rem; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem; font-weight: 800;
+      color: var(--white);
+    }
+    .stat-num span { color: var(--accent2); }
+    .stat-label { color: var(--gray); font-size: 0.85rem; margin-top: 4px; }
+
+    /* ── SERVICES PREVIEW (Home) ── */
+    .services-preview {
+      padding: 100px 5%;
+      position: relative;
+    }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-tag {
+      display: inline-block;
+      color: var(--accent2);
+      font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+    .section-title .highlight { color: var(--accent2); }
+    .section-sub {
+      color: var(--gray); margin-top: 1rem;
+      max-width: 500px; margin-left: auto; margin-right: auto;
+      font-size: 1rem;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at top left, rgba(124,92,252,0.08), transparent 60%);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .card:hover { transform: translateY(-6px); border-color: rgba(124,92,252,0.4); }
+    .card:hover::before { opacity: 1; }
+    .card-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: rgba(124,92,252,0.12);
+      border: 1px solid rgba(124,92,252,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.25rem;
+    }
+    .card h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem; font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    .card p { color: var(--gray); font-size: 0.9rem; line-height: 1.7; }
+
+    /* ── GALLERY PREVIEW ── */
+    .gallery-section { padding: 80px 5%; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      gap: 1rem;
+    }
+    .gallery-item {
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item:first-child { grid-column: span 2; }
+    .gallery-img {
+      width: 100%; height: 220px; object-fit: cover;
+      background: var(--bg3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      transition: transform 0.4s;
+    }
+    .gallery-item:hover .gallery-img { transform: scale(1.05); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,15,0.8), transparent);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: flex-end; padding: 1.2rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-label { color: var(--white); font-weight: 600; font-size: 0.9rem; }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      padding: 100px 5%;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(124,92,252,0.12), transparent);
+    }
+    .cta-box {
+      position: relative; z-index: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 5rem 3rem;
+      max-width: 700px; margin: 0 auto;
+    }
+    .cta-box h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+    .cta-box p { color: var(--gray); margin-bottom: 2.5rem; font-size: 1rem; }
+
+    /* ── ABOUT PAGE ── */
+    .about-hero {
+      padding: 140px 5% 80px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .about-img-block {
+      position: relative;
+    }
+    .about-img {
+      width: 100%; height: 420px;
+      background: linear-gradient(135deg, var(--bg3), var(--bg2));
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem;
+      position: relative; overflow: hidden;
+    }
+    .about-img::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(124,92,252,0.2), transparent 60%);
+    }
+    .about-badge-float {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--accent);
+      color: #fff; border-radius: 14px;
+      padding: 1rem 1.5rem; text-align: center;
+      box-shadow: 0 10px 40px rgba(124,92,252,0.4);
+    }
+    .about-badge-float .num {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 800; display: block;
+    }
+    .about-badge-float .lbl { font-size: 0.8rem; opacity: 0.9; }
+    .about-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 1.5rem;
+    }
+    .about-text p { color: var(--gray); line-height: 1.8; margin-bottom: 1.2rem; font-size: 0.95rem; }
+    .values-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 2rem;
+    }
+    .value-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      transition: border-color 0.3s;
+    }
+    .value-card:hover { border-color: rgba(124,92,252,0.4); }
+    .value-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .value-card p { color: var(--gray); font-size: 0.8rem; line-height: 1.5; }
+    .team-section { padding: 80px 5%; }
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .team-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem;
+      text-align: center; transition: all 0.3s;
+    }
+    .team-card:hover { transform: translateY(-5px); border-color: rgba(124,92,252,0.4); }
+    .team-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+    }
+    .team-card h4 { font-weight: 700; margin-bottom: 0.3rem; }
+    .team-card p { color: var(--accent2); font-size: 0.85rem; }
+
+    /* ── SERVICES PAGE ── */
+    .services-hero {
+      padding: 140px 5% 60px;
+      text-align: center;
+    }
+    .services-full-grid {
+      padding: 60px 5% 100px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card-full {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card-full::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .service-card-full:hover {
+      transform: translateY(-6px);
+      border-color: rgba(124,92,252,0.4);
+      box-shadow: 0 20px 60px rgba(124,92,252,0.15);
+    }
+    .service-card-full:hover::after { transform: scaleX(1); }
+    .service-icon-lg {
+      font-size: 2.5rem; margin-bottom: 1.5rem;
+      display: block;
+    }
+    .service-card-full h3 {
+      font-family: var(--font-display);
+      font-size: 1.3rem; font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .service-card-full p { color: var(--gray); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .service-features { list-style: none; }
+    .service-features li {
+      color: var(--gray); font-size: 0.85rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .service-features li::before {
+      content: '✓';
+      color: var(--accent2);
+      font-weight: 700; font-size: 0.8rem;
+    }
+
+    /* ── CONTACT PAGE ── */
+    .contact-page { padding: 140px 5% 100px; }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.3fr;
+      gap: 4rem; align-items: start;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .contact-info h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 1rem;
+    }
+    .contact-info p { color: var(--gray); line-height: 1.8; margin-bottom: 2rem; font-size: 0.95rem; }
+    .contact-items { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-item {
+      display: flex; gap: 1rem; align-items: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+    }
+    .contact-item-icon {
+      width: 40px; height: 40px;
+      background: rgba(124,92,252,0.12);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-item-text h4 { font-size: 0.85rem; font-weight: 600; }
+    .contact-item-text p { color: var(--gray); font-size: 0.8rem; }
+    .map-embed {
+      margin-top: 1.5rem;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .map-embed iframe { display: block; filter: grayscale(50%) invert(90%) hue-rotate(180deg); }
+    .contact-form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+    }
+    .contact-form h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 700;
+      margin-bottom: 2rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.25rem; }
+    .form-group label {
+      display: block; color: var(--gray);
+      font-size: 0.85rem; font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.85rem 1rem;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+      background: rgba(124,92,252,0.05);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-group select option { background: var(--bg2); color: var(--white); }
+    .form-success {
+      display: none;
+      text-align: center; padding: 2rem;
+      color: #4ade80;
+    }
+    .form-success .check { font-size: 3rem; display: block; margin-bottom: 1rem; }
+    .form-error { color: #f87171; font-size: 0.8rem; margin-top: 4px; display: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 60px 5% 30px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+    .footer-brand p { color: var(--gray); font-size: 0.9rem; margin-top: 1rem; line-height: 1.7; }
+    .footer-col h4 {
+      font-size: 0.9rem; font-weight: 600;
+      margin-bottom: 1.25rem; color: var(--white);
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.6rem; }
+    .footer-col ul li a {
+      color: var(--gray); text-decoration: none;
+      font-size: 0.85rem; transition: color 0.2s; cursor: pointer;
+    }
+    .footer-col ul li a:hover { color: var(--accent2); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { color: var(--gray2); font-size: 0.8rem; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 5%;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .about-hero { grid-template-columns: 1fr; gap: 3rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:first-child { grid-column: span 1; }
+      .hero-stats { gap: 2rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar">
+  <a class="nav-logo" href="#" onclick="showPage('home')">Nexa<span>Pro</span></a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')">Home</a></li>
+    <li><a onclick="showPage('about')">About Us</a></li>
+    <li><a onclick="showPage('services')">Services</a></li>
+    <li><a onclick="showPage('contact')">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="showPage('contact')">Get Started</button>
+  <div class="hamburger" onclick="toggleMobile()" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="showPage('home');toggleMobile()">Home</a>
+  <a onclick="showPage('about');toggleMobile()">About Us</a>
+  <a onclick="showPage('services');toggleMobile()">Services</a>
+  <a onclick="showPage('contact');toggleMobile()">Contact</a>
+  <button class="btn-primary" onclick="showPage('contact');toggleMobile()" style="width:fit-content">Get Started</button>
+</div>
+
+<!-- ═══════════════════════════════ HOME PAGE ═══════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">✦ Premium Business Solutions</div>
+      <h1>We Build <span class="gradient">Digital<br/>Experiences</span> That Convert</h1>
+      <p>NexaPro helps ambitious businesses scale with cutting-edge technology, expert strategy, and world-class design.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('services')">Explore Services</button>
+        <button class="btn-outline" onclick="showPage('contact')">Get Free Estimate</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">500<span>+</span></div>
+          <div class="stat-label">Projects Delivered</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">98<span>%</span></div>
+          <div class="stat-label">Client Satisfaction</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">12<span>+</span></div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">40<span>+</span></div>
+          <div class="stat-label">Expert Team</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Preview -->
+  <section class="services-preview">
+    <div class="section-header reveal">
+      <div class="section-tag">What We Do</div>
+      <h2 class="section-title">Services That Drive <span class="highlight">Real Results</span></h2>
+      <p class="section-sub">From strategy to execution — we cover everything your business needs to grow.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card reveal reveal-delay-1">
+        <div class="card-icon">🚀</div>
+        <h3>Digital Strategy</h3>
+        <p>Data-driven roadmaps that align your technology investments with business goals for maximum ROI.</p>
+      </div>
+      <div class="card reveal reveal-delay-2">
+        <div class="card-icon">🎨</div>
+        <h3>UI/UX Design</h3>
+        <p>Beautiful, intuitive interfaces that delight users and drive conversions across all platforms.</p>
+      </div>
+      <div class="card reveal reveal-delay-3">
+        <div class="card-icon">⚡</div>
+        <h3>Web Development</h3>
+        <p>High-performance web applications built with modern frameworks and best-in-class engineering.</p>
+      </div>
+      <div class="card reveal reveal-delay-4">
+        <div class="card-icon">📊</div>
+        <h3>Growth Marketing</h3>
+        <p>Proven growth strategies that increase visibility, attract leads, and convert them into customers.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:3rem">
+      <button class="btn-outline reveal" onclick="showPage('services')">View All Services →</button>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- Gallery Preview -->
+  <section class="gallery-section">
+    <div class="section-header reveal">
+      <div class="section-tag">Our Work</div>
+      <h2 class="section-title">Projects We're <span class="highlight">Proud Of</span></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal">
+        <div class="gallery-img" style="font-size:4rem;background:linear-gradient(135deg,#1a1a2e,#16213e)">🏢</div>
+        <div class="gallery-overlay"><span class="gallery-label">Corporate Rebrand — TechVenture</span></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#0f3443,#1a1a2e)">🛒</div>
+        <div class="gallery-overlay"><span class="gallery-label">E-Commerce Platform</span></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-2">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#1a0533,#1a1a2e)">📱</div>
+        <div class="gallery-overlay"><span class="gallery-label">Mobile App — FinTrack</span></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-3">
+        <div class="gallery-img" style="background:linear-gradient(135deg,#0a2e1a,#1a1a2e)">🌐</div>
+        <div class="gallery-overlay"><span class="gallery-label">SaaS Dashboard</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-bg"></div>
+    <div class="cta-box reveal">
+      <div class="section-tag">Ready to Start?</div>
+      <h2>Let's Build Something <span style="color:var(--accent2)">Amazing</span> Together</h2>
+      <p>Book a free 30-minute strategy call and let's discuss how we can help your business grow.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn-primary" onclick="showPage('contact')">Get Free Estimate</button>
+        <button class="btn-outline" onclick="showPage('about')">Learn About Us</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="font-size:1.4rem">Nexa<span style="color:var(--accent2)">Pro</span></div>
+        <p>Premium business solutions for ambitious companies. We turn your vision into digital reality.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a onclick="showPage('about')">About Us</a></li>
+          <li><a onclick="showPage('services')">Services</a></li>
+          <li><a>Careers</a></li>
+          <li><a>Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a>Web Design</a></li>
+          <li><a>Development</a></li>
+          <li><a>Marketing</a></li>
+          <li><a>Consulting</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a>📧 hello@nexapro.com</a></li>
+          <li><a>📞 +1 (555) 123-4567</a></li>
+          <li><a>📍 San Francisco, CA</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 NexaPro. All rights reserved.</p>
+      <p>Privacy Policy · Terms of Service</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════ ABOUT PAGE ══════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div class="about-img-block reveal">
+      <div class="about-img">🏆</div>
+      <div class="about-badge-float">
+        <span class="num">12+</span>
+        <span class="lbl">Years in Business</span>
+      </div>
+    </div>
+    <div class="about-text reveal reveal-delay-1">
+      <div class="section-tag">About NexaPro</div>
+      <h2>We're a Team of <span style="color:var(--accent2)">Passionate</span> Problem Solvers</h2>
+      <p>Founded in 2012, NexaPro has grown from a small web studio into a full-service digital agency trusted by 500+ businesses worldwide.</p>
+      <p>We believe that great digital products are built at the intersection of beautiful design, solid engineering, and smart strategy. That's exactly what we deliver — every single time.</p>
+      <p>Our team of 40+ experts brings together diverse skills across design, development, marketing, and business strategy to help our clients grow.</p>
+      <div class="values-grid">
+        <div class="value-card">
+          <h4>🎯 Mission</h4>
+          <p>Empower businesses with technology that drives real, measurable growth.</p>
+        </div>
+        <div class="value-card">
+          <h4>👁️ Vision</h4>
+          <p>A world where every business has access to world-class digital capabilities.</p>
+        </div>
+        <div class="value-card">
+          <h4>💡 Innovation</h4>
+          <p>We stay ahead of trends and use cutting-edge technology for every project.</p>
+        </div>
+        <div class="value-card">
+          <h4>🤝 Integrity</h4>
+          <p>Transparent communication and honest relationships with every client.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="team-section">
+    <div class="section-header reveal">
+      <div class="section-tag">Our People</div>
+      <h2 class="section-title">Meet the <span class="highlight">Leadership</span> Team</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal reveal-delay-1">
+        <div class="team-avatar">👨‍💼</div>
+        <h4>James Carter</h4>
+        <p>CEO & Co-Founder</p>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div class="team-avatar">👩‍🎨</div>
+        <h4>Sarah Liu</h4>
+        <p>Head of Design</p>
+      </div>
+      <div class="team-card reveal reveal-delay-3">
+        <div class="team-avatar">👨‍💻</div>
+        <h4>Mark Okafor</h4>
+        <p>Lead Engineer</p>
+      </div>
+      <div class="team-card reveal reveal-delay-4">
+        <div class="team-avatar">👩‍📊</div>
+        <h4>Priya Sharma</h4>
+        <p>Growth Director</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid var(--border);padding-top:1.5rem">
+      <p>© 2024 NexaPro. All rights reserved.</p>
+      <p>
+        <a onclick="showPage('home')" style="color:var(--gray);cursor:pointer;margin-right:1rem">Home</a>
+        <a onclick="showPage('contact')" style="color:var(--gray);cursor:pointer">Contact</a>
+      </p>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ SERVICES PAGE ════════════════════════════ -->
+<div class="page" id="page-services">
+  <div class="services-hero">
+    <div class="section-tag reveal">What We Offer</div>
+    <h1 class="section-title reveal reveal-delay-1">Services Built for <span class="highlight">Growth</span></h1>
+    <p class="section-sub reveal reveal-delay-2">Everything you need to establish, grow, and scale your digital presence.</p>
+  </div>
+
+  <div class="services-full-grid">
+    <div class="service-card-full reveal">
+      <span class="service-icon-lg">🎨</span>
+      <h3>UI/UX Design</h3>
+      <p>We craft visually stunning, user-centered designs that convert visitors into customers and create memorable brand experiences.</p>
+      <ul class="service-features">
+        <li>User Research & Personas</li>
+        <li>Wireframing & Prototyping</li>
+        <li>Visual Design & Branding</li>
+        <li>Usability Testing</li>
+        <li>Design Systems</li>
+      </ul>
+    </div>
+    <div class="service-card-full reveal reveal-delay-1">
+      <span class="service-icon-lg">⚡</span>
+      <h3>Web Development</h3>
+      <p>High-performance websites and web applications built with modern tech stacks, optimized for speed, SEO, and conversions.</p>
+      <ul class="service-features">
+        <li>React / Next.js Development</li>
+        <li>E-Commerce Solutions</li>
+        <li>API Integration</li>
+        <li>Performance Optimization</li>
+        <li>CMS Development</li>
+      </ul>
+    </div>
+    <div class="service-card-full reveal reveal-delay-2">
+      <span class="service-icon-lg">📱</span>
+      <h3>Mobile Apps</h3>
+      <p>Native and cross-platform mobile applications that deliver exceptional user experiences on iOS and Android.</p>
+      <ul class="service-features">
+        <li>iOS & Android Development</li>
+        <li>React Native / Flutter</li>
+        <li>App Store Optimization</li>
+        <li>Push Notifications</li>
+        <li>Offline Functionality</li>
+      </ul>
+    </div>
+    <div class="service-card-full reveal reveal-delay-1">
+      <span class="service-icon-lg">📊</span>
+      <h3>Digital Marketing</h3>
+      <p>Data-driven marketing strategies that increase your brand visibility, drive qualified traffic, and maximize ROI.</p>
+      <ul class="service-features">
+        <li>SEO & Content Strategy</li>
+        <li>Paid Ads (Google, Meta)</li>
+        <li>Email Marketing</li>
+        <li>Social Media Management</li>
+        <li>Analytics & Reporting</li>
+      </ul>
+    </div>
+    <div class="service-card-full reveal reveal-delay-2">
+      <span class="service-icon-lg">🔒</span>
+      <h3>Cloud & DevOps</h3>
+      <p>Scalable cloud infrastructure and DevOps automation that keeps your systems reliable, fast, and secure 24/7.</p>
+      <ul class="service-features">
+        <li>AWS / GCP / Azure Setup</li>
+        <li>CI/CD Pipelines</li>
+        <li>Security Audits</li>
+        <li>Performance Monitoring</li>
+        <li>Database Optimization</li>
+      </ul>
+    </div>
+    <div class="service-card-full reveal reveal-delay-3">
+      <span class="service-icon-lg">🚀</span>
+      <h3>Strategy & Consulting</h3>
+      <p>Expert strategic guidance to help you make the right technology decisions and build competitive digital advantages.</p>
+      <ul class="service-features">
+        <li>Digital Transformation</li>
+        <li>Tech Stack Consulting</li>
+        <li>Product Roadmapping</li>
+        <li>Competitive Analysis</li>
+        <li>Growth Planning</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="cta-section" style="padding-top:0">
+    <div class="cta-bg"></div>
+    <div class="cta-box reveal">
+      <h2>Ready to <span style="color:var(--accent2)">Get Started?</span></h2>
+      <p>Tell us about your project and get a free estimate within 24 hours.</p>
+      <button class="btn-primary" onclick="showPage('contact')">Request Free Estimate →</button>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid var(--border);padding-top:1.5rem">
+      <p>© 2024 NexaPro. All rights reserved.</p>
+      <a onclick="showPage('home')" style="color:var(--gray);cursor:pointer">Back to Home</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════ CONTACT PAGE ═════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="contact-page">
+    <div class="section-header reveal" style="margin-bottom:3rem">
+      <div class="section-tag">Get In Touch</div>
+      <h1 class="section-title">Let's Start a <span class="highlight">Conversation</span></h1>
+      <p class="section-sub">Have a project in mind? We'd love to hear about it. Fill out the form and we'll get back to you within 24 hours.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <h2>Contact <span style="color:var(--accent2)">Information</span></h2>
+        <p>Reach out through any of these channels and our team will respond promptly.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">📧</div>
+            <div class="contact-item-text">
+              <h4>Email Us</h4>
+              <p>hello@nexapro.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📞</div>
+            <div class="contact-item-text">
+              <h4>Call Us</h4>
+              <p>+1 (555) 123-4567</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">📍</div>
+            <div class="contact-item-text">
+              <h4>Service Area</h4>
+              <p>San Francisco to San Jose, CA</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">🕐</div>
+            <div class="contact-item-text">
+              <h4>Business Hours</h4>
+              <p>Mon–Fri: 9 AM – 6 PM PST</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Map -->
+        <div class="map-embed" style="margin-top:1.5rem">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d346964.76609530136!2d-121.9886!3d37.4419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1234567890"
+            width="100%" height="200" style="border:0" allowfullscreen="" loading="lazy">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="contact-form reveal reveal-delay-1">
+        <h3>Send Us a Message</h3>
+        <div id="formSuccess" class="form-success">
+          <span class="check">✅</span>
+          <h3 style="color:var(--white)">Message Sent!</h3>
+          <p style="color:var(--gray);margin-top:0.5rem">Thanks! We'll get back to you within 24 hours.</p>
+        </div>
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" id="fname" placeholder="John Smith" />
+              <div class="form-error" id="err-fname">Name is required</div>
+            </div>
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input type="email" id="femail" placeholder="john@company.com" />
+              <div class="form-error" id="err-femail">Valid email required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+1 (555) 000-0000" />
+          </div>
+          <div class="form-group">
+            <label>Service Interested In</label>
+            <select>
+              <option value="">Select a service...</option>
+              <option>UI/UX Design</option>
+              <option>Web Development</option>
+              <option>Mobile App</option>
+              <option>Digital Marketing</option>
+              <option>Cloud & DevOps</option>
+              <option>Strategy & Consulting</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Estimated Budget</label>
+            <select>
+              <option value="">Select budget range...</option>
+              <option>Under $5,000</option>
+              <option>$5,000 – $15,000</option>
+              <option>$15,000 – $50,000</option>
+              <option>$50,000+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Your Message *</label>
+            <textarea id="fmessage" placeholder="Tell us about your project, goals, and timeline..."></textarea>
+            <div class="form-error" id="err-fmessage">Message is required</div>
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;padding:1rem">
+            Send Message →
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid var(--border);padding-top:1.5rem">
+      <p>© 2024 NexaPro. All rights reserved.</p>
+      <a onclick="showPage('home')" style="color:var(--gray);cursor:pointer">Back to Home</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // ── Page Navigation ──
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(initReveal, 100);
+  }
+
+  // ── Sticky Navbar ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30);
+  });
+
+  // ── Mobile Menu ──
+  function toggleMobile() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // ── Scroll Reveal ──
+  function initReveal() {
+    const els = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    els.forEach(el => obs.observe(el));
+  }
+  initReveal();
+
+  // ── Contact Form ──
+  function handleSubmit(e) {
+    e.preventDefault();
+    let valid = true;
+
+    const name = document.getElementById('fname');
+    const email = document.getElementById('femail');
+    const msg = document.getElementById('fmessage');
+
+    // Reset errors
+    document.querySelectorAll('.form-error').forEach(el => el.style.display = 'none');
+    [name, email, msg].forEach(el => el.style.borderColor = '');
+
+    if (!name.value.trim()) {
+      document.getElementById('err-fname').style.display = 'block';
+      name.style.borderColor = '#f87171'; valid = false;
+    }
+    if (!email.value.includes('@') || !email.value.includes('.')) {
+      document.getElementById('err-femail').style.display = 'block';
+      email.style.borderColor = '#f87171'; valid = false;
+    }
+    if (!msg.value.trim()) {
+      document.getElementById('err-fmessage').style.display = 'block';
+      msg.style.borderColor = '#f87171'; valid = false;
+    }
+
+    if (valid) {
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }
+  }
+
+  // Close mobile menu on outside click
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobileMenu');
+    const hamburger = document.getElementById('hamburger');
+    if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
